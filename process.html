@@ -1,112 +1,82 @@
 import React, { useState } from 'react';
 
-const RiskProfileProgressBar = () => {
-  const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 6;
+const RiskProfileLabel = () => {
+  const [riskLevel, setRiskLevel] = useState(0);
   
-  const progressPercentage = (currentStep / totalSteps) * 100;
-
-  const handlePrev = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
-  const handleNext = () => {
-    if (currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
   return (
-    <div className="risk-profile-container">
-      <div className="header">
-        <h1>风险测评问卷</h1>
-        <p className="subtitle">本问卷将帮助您了解自己的风险承受能力，大约需要10分钟完成</p >
-      </div>
-      
-      <div className="progress-container">
-        <div className="progress-info">
-          <span className="step-counter">问题 {currentStep} / {totalSteps}</span>
-          <span className="step-percentage">{Math.round(progressPercentage)}%</span>
-        </div>
+    <div className="risk-container">
+      <div className="risk-card">
+        <h1 className="title">风险承受能力评估</h1>
         
-        <div className="progress-bar">
-          <div 
-            className="progress-fill" 
-            style={{ width: `${progressPercentage}%` }}
-          >
-            <div className="progress-indicator">{currentStep}</div>
+        <div className="risk-display">
+          <div className="risk-label">
+            <span className="icon">??</span>
+            <span className="text">I can't take any risks</span>
           </div>
-        </div>
-        
-        <div className="step-labels">
-          {[...Array(totalSteps)].map((_, index) => (
-            <div 
-              key={index} 
-              className={`step-label ${index + 1 <= currentStep ? 'completed' : ''}`}
-            >
-              {index + 1}
-            </div>
-          ))}
-        </div>
-      </div>
-      
-      <div className="question-container">
-        <div className="question-card">
-          <h3>问题 {currentStep}</h3>
-          <p>这是问卷的第 {currentStep} 个问题，请根据您的实际情况选择最符合的答案。</p >
           
-          <div className="options">
-            <label className="option">
-              <input type="radio" name={`q${currentStep}`} />
-              <span>选项 A</span>
-            </label>
-            <label className="option">
-              <input type="radio" name={`q${currentStep}`} />
-              <span>选项 B</span>
-            </label>
-            <label className="option">
-              <input type="radio" name={`q${currentStep}`} />
-              <span>选项 C</span>
-            </label>
-            <label className="option">
-              <input type="radio" name={`q${currentStep}`} />
-              <span>选项 D</span>
-            </label>
+          <div className="risk-explanation">
+            <p>您的风险承受能力较低，适合选择保守型投资策略</p >
+          </div>
+          
+          <div className="risk-meter">
+            <div className="risk-scale">
+              <span className="low">低风险</span>
+              <div className="scale-bar">
+                <div 
+                  className="indicator" 
+                  style={{ left: `${riskLevel * 20}%` }}
+                ></div>
+              </div>
+              <span className="high">高风险</span>
+            </div>
           </div>
         </div>
-      </div>
-      
-      <div className="navigation-buttons">
-        <button 
-          className="nav-button prev" 
-          onClick={handlePrev}
-          disabled={currentStep === 1}
-        >
-          上一题
-        </button>
-        <button 
-          className="nav-button next" 
-          onClick={handleNext}
-          disabled={currentStep === totalSteps}
-        >
-          {currentStep === totalSteps ? '完成测评' : '下一题'}
-        </button>
-      </div>
-      
-      <div className="risk-level-info">
-        <div className="risk-scale">
-          <span>低风险偏好</span>
-          <div className="scale-bar">
-            <div className="indicator" style={{ left: `${(currentStep-1) * 20}%` }}></div>
+        
+        <div className="risk-selector">
+          <h3>调整您的风险承受能力:</h3>
+          
+          <div className="risk-slider">
+            <div className="slider-labels">
+              {[0, 1, 2, 3, 4, 5].map(num => (
+                <div 
+                  key={num} 
+                  className={`slider-label ${num === riskLevel ? 'active' : ''}`}
+                  onClick={() => setRiskLevel(num)}
+                >
+                  {num}
+                </div>
+              ))}
+            </div>
+            
+            <input 
+              type="range" 
+              min="0" 
+              max="5" 
+              value={riskLevel} 
+              onChange={(e) => setRiskLevel(parseInt(e.target.value))}
+              className="slider"
+            />
+            
+            <div className="slider-caption">
+              <span>保守型</span>
+              <span>平衡型</span>
+              <span>进取型</span>
+            </div>
           </div>
-          <span>高风险偏好</span>
         </div>
-        <p className="risk-tip">根据您当前答题情况，您的风险偏好为中等水平</p >
+        
+        <div className="risk-details">
+          <h3>低风险承受能力特点:</h3>
+          <ul>
+            <li>偏好本金安全，避免任何可能的损失</li>
+            <li>可接受较低回报以换取资产稳定性</li>
+            <li>倾向于短期、流动性高的投资产品</li>
+            <li>投资决策保守，避免市场波动</li>
+          </ul>
+        </div>
       </div>
     </div>
   );
 };
 
-export default RiskProfileProgressBar;
+export default RiskProfileLabel;
