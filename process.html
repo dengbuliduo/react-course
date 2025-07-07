@@ -1,0 +1,112 @@
+import React, { useState } from 'react';
+
+const RiskProfileProgressBar = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const totalSteps = 6;
+  
+  const progressPercentage = (currentStep / totalSteps) * 100;
+
+  const handlePrev = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentStep < totalSteps) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  return (
+    <div className="risk-profile-container">
+      <div className="header">
+        <h1>风险测评问卷</h1>
+        <p className="subtitle">本问卷将帮助您了解自己的风险承受能力，大约需要10分钟完成</p >
+      </div>
+      
+      <div className="progress-container">
+        <div className="progress-info">
+          <span className="step-counter">问题 {currentStep} / {totalSteps}</span>
+          <span className="step-percentage">{Math.round(progressPercentage)}%</span>
+        </div>
+        
+        <div className="progress-bar">
+          <div 
+            className="progress-fill" 
+            style={{ width: `${progressPercentage}%` }}
+          >
+            <div className="progress-indicator">{currentStep}</div>
+          </div>
+        </div>
+        
+        <div className="step-labels">
+          {[...Array(totalSteps)].map((_, index) => (
+            <div 
+              key={index} 
+              className={`step-label ${index + 1 <= currentStep ? 'completed' : ''}`}
+            >
+              {index + 1}
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <div className="question-container">
+        <div className="question-card">
+          <h3>问题 {currentStep}</h3>
+          <p>这是问卷的第 {currentStep} 个问题，请根据您的实际情况选择最符合的答案。</p >
+          
+          <div className="options">
+            <label className="option">
+              <input type="radio" name={`q${currentStep}`} />
+              <span>选项 A</span>
+            </label>
+            <label className="option">
+              <input type="radio" name={`q${currentStep}`} />
+              <span>选项 B</span>
+            </label>
+            <label className="option">
+              <input type="radio" name={`q${currentStep}`} />
+              <span>选项 C</span>
+            </label>
+            <label className="option">
+              <input type="radio" name={`q${currentStep}`} />
+              <span>选项 D</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      
+      <div className="navigation-buttons">
+        <button 
+          className="nav-button prev" 
+          onClick={handlePrev}
+          disabled={currentStep === 1}
+        >
+          上一题
+        </button>
+        <button 
+          className="nav-button next" 
+          onClick={handleNext}
+          disabled={currentStep === totalSteps}
+        >
+          {currentStep === totalSteps ? '完成测评' : '下一题'}
+        </button>
+      </div>
+      
+      <div className="risk-level-info">
+        <div className="risk-scale">
+          <span>低风险偏好</span>
+          <div className="scale-bar">
+            <div className="indicator" style={{ left: `${(currentStep-1) * 20}%` }}></div>
+          </div>
+          <span>高风险偏好</span>
+        </div>
+        <p className="risk-tip">根据您当前答题情况，您的风险偏好为中等水平</p >
+      </div>
+    </div>
+  );
+};
+
+export default RiskProfileProgressBar;

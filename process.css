@@ -1,0 +1,261 @@
+/* 全局样式 */
+:root {
+  --primary: #2563eb;
+  --primary-light: #dbeafe;
+  --secondary: #4f46e5;
+  --success: #10b981;
+  --gray: #9ca3af;
+  --light-gray: #f3f4f6;
+  --dark: #1f2937;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8fafc;
+  margin: 0;
+  padding: 20px;
+  color: var(--dark);
+}
+
+.risk-profile-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  padding: 40px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  color: var(--primary);
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: var(--gray);
+  font-size: 18px;
+  margin-top: 0;
+}
+
+/* 进度条容器 */
+.progress-container {
+  margin-bottom: 40px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.step-counter, .step-percentage {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.step-percentage {
+  color: var(--primary);
+}
+
+/* 进度条样式 */
+.progress-bar {
+  height: 12px;
+  background-color: var(--light-gray);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 10px;
+  position: relative;
+  transition: width 0.5s ease-in-out;
+}
+
+.progress-indicator {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 28px;
+  height: 28px;
+  background-color: white;
+  border: 3px solid var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--primary);
+  font-size: 14px;
+}
+
+/* 步骤标签 */
+.step-labels {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-top: -25px;
+}
+
+.step-label {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--light-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--gray);
+  border: 2px solid var(--light-gray);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.step-label.completed {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* 问题卡片 */
+.question-container {
+  margin-bottom: 30px;
+}
+
+.question-card {
+  background: var(--light-gray);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+}
+
+.question-card h3 {
+  margin-top: 0;
+  color: var(--primary);
+  font-size: 22px;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.option {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+}
+
+.option:hover {
+  border-color: var(--primary-light);
+  background: #eff6ff;
+}
+
+.option input {
+  margin-right: 12px;
+  accent-color: var(--primary);
+}
+
+/* 导航按钮 */
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.nav-button {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.prev {
+  background: white;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.prev:hover:not(:disabled) {
+  background: #eff6ff;
+}
+
+.next {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  color: white;
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+}
+
+.next:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(37, 99, 235, 0.4);
+}
+
+.nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 风险级别指示器 */
+.risk-level-info {
+  background: #f0f9ff;
+  border-radius: 12px;
+  padding: 20px;
+  border-left: 4px solid var(--primary);
+}
+
+.risk-scale {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.scale-bar {
+  flex: 1;
+  height: 8px;
+  background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444);
+  border-radius: 4px;
+  margin: 0 15px;
+  position: relative;
+}
+
+.indicator {
+  position: absolute;
+  top: -6px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border: 3px solid var(--dark);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  transition: left 0.5s ease;
+}
+
+.risk-tip {
+  text-align: center;
+  font-weight: 500;
+  color: var(--dark);
+  margin: 0;
+}
